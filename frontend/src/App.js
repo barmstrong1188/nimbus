@@ -44,6 +44,11 @@ function App() {
               <ProductForm/>
             </ProtectedRoute> 
             } />
+            <Route path="/edit-product/:id" element={
+            <ProtectedRoute>
+              <ProductForm/>
+            </ProtectedRoute> 
+            } />
         </Routes>
       </div>
     </Router>

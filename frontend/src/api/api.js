@@ -28,6 +28,10 @@ export const fetchProducts = async () => {
     return apiClient.get('/products');
 };
 
+export const fetchProduct = async (id, productData) => {
+    return apiClient.get(`products/${id}`, productData);
+}
+
 export const addProduct = async (productData) => {
     return apiClient.post('/products', productData);
 };
