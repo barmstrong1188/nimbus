@@ -41,3 +41,7 @@ const authenticateToken = require('./middleware/auth');
 app.get('/api/protected', authenticateToken, (req, res) => {
   res.json({ message: 'This is a protected route!', user: req.user });
 });
+
+// Product routes
+const productRoutes = require('./routes/products');
+app.use('/api/products', productRoutes);
