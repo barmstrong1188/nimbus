@@ -1,37 +1,33 @@
 import './App.css';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import ProductList from './pages/ProductList';
 import ProductForm from './pages/ProductForm';
 import ProtectedRoute from './components/ProtectedRoute';
-import LogoutButton from './components/LogoutButton';
-import React, { useState, useContext } from 'react';
-import { AuthContext } from './context/AuthContext';
+import React, { useState } from 'react';
 import Notification from './components/Notification';
+import logo from './images/nimbus-logo.png';
+import MiniDrawer from './components/MiniDrawer';
 
 function App() {
-  // Check if the user is logged in by looking for the token
-  const { token } = useContext(AuthContext);
-  // useState for successful login/logout noticiation
+  // useState for successful login/logout notification
   const [notification, setNotification] = useState('');
 
   return (
     <Router>
       <div>
         <Notification message={notification} clearMessage={() => setNotification('')} />
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/products">Products</Link></li>
-            <li><Link to="/add-product">Add Product</Link></li>
-            {token && <li><LogoutButton setNotification={setNotification}/></li>}
-          </ul>
-        </nav>
-        <Routes>
-          <Route path="/" element={<Home/>}></Route>
+        {/* Brand Logo/Header */}
+        <div className="logo-container">
+            <img alt="Nimbus Logo" src={logo} className="logo"></img>
+            <h1 className="fredoka-heavy logo-header">NIMBUS</h1>
+            <h3 className="montserrat-medium logo-text">CLOUD INVENTORY</h3>
+          </div>
+        <Routes >
+          <Route path="/" element={<MiniDrawer />}>
+          <Route index element={<Home/>}></Route>
           <Route path="/login" element={<Login setNotification={setNotification}/>}></Route>
           <Route path="/signup" element={<Signup setNotification={setNotification}/>}></Route>
           <Route path="/products" element={
@@ -49,6 +45,7 @@ function App() {
               <ProductForm/>
             </ProtectedRoute> 
             } />
+            </Route>
         </Routes>
       </div>
     </Router>
