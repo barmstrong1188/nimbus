@@ -83,14 +83,14 @@ const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    marginLeft: `-${drawerWidthClosed}px`,
-    ...(open && {
-      marginLeft: `${drawerWidthOpen}px`,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
+    // marginLeft: `-${drawerWidthClosed}px`,
+    // ...(open && {
+    //   marginLeft: `${drawerWidthOpen}px`,
+    //   transition: theme.transitions.create('margin', {
+    //     easing: theme.transitions.easing.easeOut,
+    //     duration: theme.transitions.duration.enteringScreen,
+    //   }),
+    // }),
   })
 );
 

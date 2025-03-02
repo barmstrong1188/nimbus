@@ -49,12 +49,20 @@
   transition: .32s;
 }
 
+/* add and edit product card */
+.add-product-button, .edit-product-button {
+  background-size: 150% !important;
+  background-position: top 20% left !important;
+}
+
+.add-product-button:hover, .edit-product-button:hover {
+  background-position: bottom right 10% !important;
+  transition: .32s ease-in-out;
+}
 /* product inventory table */
 .MuiDataGrid-columnHeaders > .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator {
   display: none !important;
 }
-
-
 
 
 .css-g39gv0-MuiDataGrid-root .MuiDataGrid-columnHeaders {

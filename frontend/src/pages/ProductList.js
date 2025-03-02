@@ -74,7 +74,7 @@ const ProductList = () => {
 
   return (
     <div style={{ height: 500, width: '69%', position: 'fixed' , left: '17%'}}>
-      <h1 style={{color: 'var(--royal-blue)', fontFamily: '"Montserrat",serif'}}>Product Inventory</h1>
+      <h1 style={{color: 'var(--royal-blue)', fontFamily: '"Montserrat",serif', fontWeight:'450'}}>Product Inventory</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <DataGrid
         rows={products}

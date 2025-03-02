@@ -111,7 +111,7 @@ const Login = ({ setNotification }) => {
             textAlign:'center',
             fontWeight:'600',
             fontFamily: '"Montserrat",serif',
-            marginTop: '-10px'
+            marginTop: '10px'
           }}>
             Don't have an account?  
             <Link to="/signup" 
