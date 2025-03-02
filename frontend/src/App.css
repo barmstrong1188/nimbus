@@ -48,3 +48,19 @@
   color: var(--light-blue) !important;
   transition: .32s;
 }
+
+/* product inventory table */
+.MuiDataGrid-columnHeaders > .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator {
+  display: none !important;
+}
+
+
+
+
+.css-g39gv0-MuiDataGrid-root .MuiDataGrid-columnHeaders {
+  background: red !important;
+}
+
+.MuiMenuItem-root {
+  font-family: 'Montserrat', serif !important;
+}

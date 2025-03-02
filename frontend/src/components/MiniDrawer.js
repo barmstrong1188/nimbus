@@ -24,7 +24,7 @@ import Notification from '../components/Notification';
 import  logo  from '../images/logo-white.svg';
 
 /** Widths for the open vs. closed states */
-const drawerWidthOpen = 240;
+const drawerWidthOpen = 215;
 const drawerWidthClosed = 72;
 
 /** Reusable transition for open/close */
