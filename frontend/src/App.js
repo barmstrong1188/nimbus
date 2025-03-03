@@ -21,31 +21,31 @@ function App() {
         <Notification message={notification} clearMessage={() => setNotification('')} />
         {/* Brand Logo/Header */}
         <div className="logo-container">
-            <img alt="Nimbus Logo" src={logo} className="logo"></img>
-            <h1 className="fredoka-heavy logo-header">NIMBUS</h1>
-            <h3 className="montserrat-medium logo-text">CLOUD INVENTORY</h3>
-          </div>
+          <img alt="Nimbus Logo" src={logo} className="logo"></img>
+          <h1 className="fredoka-heavy logo-header">NIMBUS</h1>
+          <h3 className="montserrat-medium logo-text">CLOUD INVENTORY</h3>
+        </div>
         <Routes >
           <Route path="/" element={<MiniDrawer />}>
-          <Route index element={<Home/>}></Route>
-          <Route path="/login" element={<Login setNotification={setNotification}/>}></Route>
-          <Route path="/signup" element={<Signup setNotification={setNotification}/>}></Route>
-          <Route path="/products" element={
-            <ProtectedRoute>
-              <ProductList />
-            </ProtectedRoute>
+            <Route index element={<Home />}></Route>
+            <Route path="/login" element={<Login setNotification={setNotification} />}></Route>
+            <Route path="/signup" element={<Signup setNotification={setNotification} />}></Route>
+            <Route path="/products" element={
+              <ProtectedRoute>
+                <ProductList setNotification={setNotification}/>
+              </ProtectedRoute>
             } />
-          <Route path="/add-product" element={
-            <ProtectedRoute>
-              <ProductForm/>
-            </ProtectedRoute> 
+            <Route path="/add-product" element={
+              <ProtectedRoute>
+                <ProductForm setNotification={setNotification}/>
+              </ProtectedRoute>
             } />
             <Route path="/edit-product/:id" element={
-            <ProtectedRoute>
-              <ProductForm/>
-            </ProtectedRoute> 
+              <ProtectedRoute>
+                <ProductForm setNotification={setNotification}/>
+              </ProtectedRoute>
             } />
-            </Route>
+          </Route>
         </Routes>
       </div>
     </Router>

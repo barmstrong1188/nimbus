@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { loginUser } from '../api/api';
 import { AuthContext } from '../context/AuthContext';
-import { Card, CardContent, CardActions, TextField, Button, Typography, Box } from '@mui/material';
+import { Card, CardContent, CardActions, TextField, Button, Typography, Box, useMediaQuery } from '@mui/material';
 
 const Login = ({ setNotification }) => {
   const [email, setEmail] = useState('');
@@ -10,6 +10,7 @@ const Login = ({ setNotification }) => {
   const [error,setError] = useState('');
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+  const isSmallScreen = useMediaQuery('(max-width:450px)');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,16 +32,13 @@ const Login = ({ setNotification }) => {
                   alignItems: 'center',
                   flexDirection: 'column',
                   left: '35%',
-                //   margin: 'auto', 
-                //   background: 'linear-gradient(-105deg, rgba(21,212,209,1) 0%, rgba(14,195,250,1) 6%, rgba(26,124,228,1) 90%);', 
                   borderRadius: '8px', 
                   padding: '2rem' ,
                   width: '30%',
                   filter: 'drop-shadow(4px 4px 8px rgb(147, 184, 206))',
-                  zIndex: 1200,
-                  position: 'fixed'
+                  position: 'absolute'
                   }}>
-      <Card sx={{ width: 400, backgroundColor: 'rgba(254, 255, 255, 0.95)', boxShadow:'none'}}>
+      <Card sx={{ width: isSmallScreen ? '87vw' : 400, backgroundColor: 'rgba(254, 255, 255, 0.95)', boxShadow:'none'}}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom 
                     sx={{color:'var(--royal-blue)', 
@@ -90,9 +88,10 @@ const Login = ({ setNotification }) => {
             <CardActions sx={{ mt: 1 }}>
               <Button 
                 sx={{fontFamily: '"Montserrat", serif', 
+                    marginBottom: '-10px',
                     backgroundSize: '600%',
                     backgroundPositionX: 'left',
-                    background: 'linear-gradient(-105deg, rgba(21,212,209,1) 0%, rgba(14,195,250,1) 6%, rgba(26,124,228,1) 90%);',
+                    background: 'linear-gradient(-105deg, rgba(21,212,209,1) 0%, rgba(14,195,250,1) 46%, rgba(26,124,228,1) 90%);',
                     '&:hover' : {
                         backgroundPosition: 'right'
                     }
@@ -110,8 +109,7 @@ const Login = ({ setNotification }) => {
           sx={{
             textAlign:'center',
             fontWeight:'600',
-            fontFamily: '"Montserrat",serif',
-            marginTop: '10px'
+            fontFamily: '"Montserrat",serif'
           }}>
             Don't have an account?  
             <Link to="/signup" 

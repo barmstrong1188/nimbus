@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { addProduct, updateProduct, fetchProduct } from '../api/api';
-import { 
-  Card, 
-  CardContent, 
-  CardActions, 
-  TextField, 
-  Button, 
-  Typography, 
-  Box 
+import {
+  Card,
+  CardContent,
+  CardActions,
+  TextField,
+  Button,
+  Typography,
+  Box,
+  useMediaQuery
 } from '@mui/material';
 
-const ProductForm = () => {
+const ProductForm = ({ setNotification }) => {
   const { id } = useParams(); // If id exists, we're editing a product
   const navigate = useNavigate();
   const [name, setName] = useState('');
@@ -19,6 +20,7 @@ const ProductForm = () => {
   const [price, setPrice] = useState('');
   const [quantity, setQuantity] = useState('');
   const [error, setError] = useState('');
+  const isSmallScreen = useMediaQuery('(max-width:475px');
 
   // Load product data if editing
   useEffect(() => {
@@ -59,9 +61,11 @@ const ProductForm = () => {
       if (id) {
         // Update existing product
         await updateProduct(id, { name, description, price, quantity });
+        setNotification('Product updated successfully!');
       } else {
         // Add new product
         await addProduct({ name, description, price, quantity });
+        setNotification('Product added successfully!');
       }
       navigate('/products');
     } catch (err) {
@@ -71,18 +75,25 @@ const ProductForm = () => {
   };
 
   return (
-    <Box sx={{ display: 'flex', 
-    flexDirection:'column', 
-    alignItems:'center', 
-    justifyContent: 'center', 
-    left: '35%', 
-    width: '30%',
-    position:'fixed'}}>
-      <Card sx={{ width: 400, p: 2,  filter: 'drop-shadow(4px 4px 10px rgb(176, 193, 202))', boxShadow:'none' }}>
+    <Box sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      left: '35%',
+      width: '30%',
+      position: 'absolute'
+    }}>
+      <Card sx={{
+        width: isSmallScreen ? '87vw' : 400,
+        p: 2,
+        filter: 'drop-shadow(4px 4px 10px rgb(176, 193, 202))',
+        boxShadow: 'none'
+      }}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom
-          sx={{fontFamily:'"Montserrat",serif', color: 'var(--royal-blue)', textAlign:'center'}}>
-            {id ? 'Edit Product' : 'Add Product'}
+            sx={{ fontFamily: '"Fredoka",serif', color: 'var(--royal-blue)', textAlign: 'center', fontWeight: 550 }}>
+            {id ? 'EDIT PRODUCT' : 'ADD PRODUCT'}
           </Typography>
           {error && (
             <Typography variant="body2" color="error" sx={{ mb: 2 }}>
@@ -100,10 +111,10 @@ const ProductForm = () => {
               required
               sx={{
                 '& .MuiOutlinedInput-root': {
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'var(--royal-blue)',
                     transition: '.33s'
-                    },
+                  },
                 }
               }}
             />
@@ -116,10 +127,10 @@ const ProductForm = () => {
               onChange={(e) => setDescription(e.target.value)}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'var(--royal-blue)',
                     transition: '.33s'
-                    },
+                  },
                 }
               }}
             />
@@ -134,10 +145,10 @@ const ProductForm = () => {
               onChange={(e) => setPrice(e.target.value)}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'var(--royal-blue)',
                     transition: '.33s'
-                    },
+                  },
                 }
               }}
               required
@@ -152,23 +163,24 @@ const ProductForm = () => {
               onChange={(e) => setQuantity(e.target.value)}
               sx={{
                 '& .MuiOutlinedInput-root': {
-                    '&:hover .MuiOutlinedInput-notchedOutline': {
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
                     borderColor: 'var(--royal-blue)',
                     transition: '.33s'
-                    },
+                  },
                 }
               }}
               required
             />
             <CardActions sx={{ mt: 2 }}>
               <Button type="submit" variant="contained" className="add-product-button" fullWidth
-              sx={{fontFamily: '"Montserrat", serif', 
-                backgroundSize: '600%',
-                backgroundPositionX: 'left',
-                background: 'linear-gradient(-105deg, rgba(21,212,209,1) 0%, rgba(14,195,250,1) 6%, rgba(26,124,228,1) 90%);',
-                '&:hover' : {
+                sx={{
+                  fontFamily: '"Montserrat", serif',
+                  backgroundSize: '600%',
+                  backgroundPositionX: 'left',
+                  background: 'linear-gradient(-105deg, rgba(21,212,209,1) 0%, rgba(14,195,250,1) 46%, rgba(26,124,228,1) 90%);',
+                  '&:hover': {
                     backgroundPosition: 'right'
-                }
+                  }
                 }}>
                 {id ? 'Update Product' : 'Add Product'}
               </Button>
