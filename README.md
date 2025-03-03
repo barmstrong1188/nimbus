@@ -94,7 +94,10 @@ This command starts both the backend server (from the backend folder) and the fr
 ## - Environment Variables:
   The .env file is critical for configuration. Do not commit your .env file to version control; use .env.example as a reference.
 ## - Development vs. Production:
-  The project includes different setup scripts for development, testing, and production environments. For local database development, use ```bash npm run setup: dev```
+  The project includes different setup scripts for development, testing, and production environments. For local database development, use:
+  ```bash
+  npm run setup: dev
+```
 
 # Troubleshooting:
 ## - Database Connection Issues:
