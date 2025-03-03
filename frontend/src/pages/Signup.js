@@ -88,6 +88,7 @@ const Signup = ({ setNotification }) => {
               }}
             />
             <CardActions sx={{ mt: 1 }}>
+              {/*--------------- sign up button--------------- */}
               <Button
                 aria-label="Sign up"
                 sx={{

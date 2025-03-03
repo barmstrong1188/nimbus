@@ -355,7 +355,7 @@ export default function MiniDrawer() {
           </ListItem>
         </List>
       </Drawer>
-
+      {/* ----------main content outlet here-------------- */}
       <Main>
         <Notification
           message={notification}
