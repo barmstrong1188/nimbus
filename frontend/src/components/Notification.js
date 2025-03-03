@@ -21,7 +21,7 @@ const Notification = ({ message, clearMessage }) => {
           padding: '0.75rem 1rem',
           borderRadius: '5px',
           boxShadow: '0px 0px 8px rgba(0, 0, 0, 0.3)',
-          zIndex: 9999, // Make sure it appears above other elements
+          zIndex: 9999
         }}>
             {message}
         </div>

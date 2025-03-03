@@ -10,17 +10,19 @@ const Home = () => {
     const isSmallScreen = useMediaQuery('(max-width: 760px)');
     const isMobileScreen = useMediaQuery('(max-width: 460px)');
     return (
+        // main home page content starts here
         <Box
+            component="main"
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                // height: '100vh',
-                position: 'absolute',
                 width: '75%',
-                left: '12.5%'
+                maxWidth: '1200px',
+                margin: '0 auto'
             }}
         >
+            {/* -------hero card with call to action starts here ----------*/}
             <Card
                 sx={{
                     maxWidth: 900,
@@ -37,10 +39,10 @@ const Home = () => {
                         variant="h4"
                         component="h1"
                         gutterBottom
-                        sx={{ 
-                            fontFamily: '"Montserrat", serif', 
-                            color: '#fff', 
-                            textTransform: 'uppercase', 
+                        sx={{
+                            fontFamily: '"Montserrat", serif',
+                            color: '#fff',
+                            textTransform: 'uppercase',
                             fontWeight: '500',
                             fontSize: isMobileScreen ? '1.5rem' : '1.75rem'
                         }}
@@ -51,7 +53,9 @@ const Home = () => {
                         Manage your business inventory with ease. Our platform offers intuitive features, secure authentication,
                         and real-time updates to help you stay on top of your stock.
                     </Typography>
+                    {/* -------------call to action button starts here------------- */}
                     <Button
+                        aria-label="Link to sign up page"
                         className='get-started-button'
                         variant="contained"
                         component={Link}
@@ -81,22 +85,24 @@ const Home = () => {
                     </Button>
                 </CardContent>
             </Card>
-             {/* -------------------WHY NIMBUS? SECTION------------------------- */}
+            {/* -------------------WHY NIMBUS? SECTION------------------------- */}
             <Typography
                 variant="h4"
                 component="h1"
                 gutterBottom
+                className='why-nimbus-header'
                 sx={{
                     fontFamily: '"Montserrat", serif',
                     color: 'var(--royal-blue)',
                     textTransform: 'uppercase',
                     fontWeight: '600',
-                    mt: '5%',
-                    borderBottom: '2px solid var(--royal-blue)'
+                    mt: isMobileScreen ? '10%' : '5%',
+                    borderBottom: '2px solid var(--royal-blue)',
+                    fontSize: '1.75rem'
                 }}>
                 Why Nimbus?
             </Typography>
-           {/* -------------------gradient section container------------------ */}
+            {/* -------------------gradient section container------------------ */}
             <Card
                 sx={{
                     maxWidth: 900,

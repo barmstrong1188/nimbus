@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance with base URL
 const apiClient = axios.create({
-    baseURL: 'http://localhost:3000/api'
+    baseURL: 'http://localhost:5000/api'
 });
 
 // Request interceptor to add JWT to headers
