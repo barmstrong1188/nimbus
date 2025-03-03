@@ -40,7 +40,7 @@ const ProductList = ({ setNotification }) => {
 
   // Define columns for the DataGrid
   const columns = [
-    { field: 'name', headerName: 'Name',  flex: 1, minWidth: 150, sortable: true },
+    { field: 'name', headerName: 'Name', flex: 1, minWidth: 150, sortable: true },
     { field: 'description', headerName: 'Description', flex: 2, minWidth: 250 },
     { field: 'price', headerName: 'Price', flex: 0.6, minWidth: 100, renderCell: (params) => `$${params.value}`, sortable: true },
     { field: 'quantity', headerName: 'Quantity', flex: 0.6, minWidth: 100, sortable: true },
@@ -55,6 +55,7 @@ const ProductList = ({ setNotification }) => {
       renderCell: (params) => (
         <div>
           <Button
+            aria-label="Edit product"
             variant="contained"
             size="small"
             onClick={() => navigate(`/edit-product/${params.row.id}`)}
@@ -62,6 +63,7 @@ const ProductList = ({ setNotification }) => {
             <EditIcon />
           </Button>
           <Button
+            aria-label="Delete product"
             variant="contained"
             size="small"
             color="error"
@@ -76,7 +78,8 @@ const ProductList = ({ setNotification }) => {
   ];
 
   return (
-    <div style={{ position: 'absolute', height: '80vh', width: '75%', maxWidth: '1500px',  left: '50%',  transform: 'translateX(-50%)' }}>
+    //-------------------- product inventory table starts here-------------------
+    <div style={{ position: 'absolute', height: '80vh', width: '75%', maxWidth: '1500px', left: '50%', transform: 'translateX(-50%)' }}>
       <h1 style={{ color: 'var(--royal-blue)', fontFamily: '"Montserrat",serif', fontWeight: '450' }}>Product Inventory</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <DataGrid

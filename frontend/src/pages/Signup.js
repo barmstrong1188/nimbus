@@ -23,6 +23,7 @@ const Signup = ({ setNotification }) => {
   };
 
   return (
+    // --------------------Main signup page content-----------------------
     <Box sx={{
       display: 'flex',
       justifyContent: 'center',
@@ -35,7 +36,9 @@ const Signup = ({ setNotification }) => {
       filter: 'drop-shadow(4px 4px 8px rgb(147, 184, 206))',
       position: 'fixed'
     }}>
+      {/* ------------------Sign up card starts here--------------------- */}
       <Card sx={{ width: isSmallScreen ? '87vw' : 400, backgroundColor: 'rgba(254, 255, 255, 0.95)', boxShadow: 'none' }}>
+        {/*------------------------ card header --------------------------*/}
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom
             sx={{
@@ -48,6 +51,7 @@ const Signup = ({ setNotification }) => {
             SIGN UP
           </Typography>
           {error && <Typography color="error">{error}</Typography>}
+          {/* ------------------sign up form starts here---------------- */}
           <form onSubmit={handleSubmit}>
             <TextField
               label="Email"
@@ -84,7 +88,9 @@ const Signup = ({ setNotification }) => {
               }}
             />
             <CardActions sx={{ mt: 1 }}>
+              {/*--------------- sign up button--------------- */}
               <Button
+                aria-label="Sign up"
                 sx={{
                   fontFamily: '"Montserrat", serif',
                   marginBottom: '-10px',
@@ -102,6 +108,7 @@ const Signup = ({ setNotification }) => {
             </CardActions>
           </form>
         </CardContent>
+        {/* -----------------------login link------------------------- */}
         <CardContent>
           <Typography
             variant="body2"

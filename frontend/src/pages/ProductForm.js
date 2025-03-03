@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 
 const ProductForm = ({ setNotification }) => {
-  const { id } = useParams(); // If id exists, we're editing a product
+  const { id } = useParams();
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -75,6 +75,7 @@ const ProductForm = ({ setNotification }) => {
   };
 
   return (
+    //-------------- main add/edit product content starts here------------
     <Box sx={{
       display: 'flex',
       flexDirection: 'column',
@@ -84,6 +85,7 @@ const ProductForm = ({ setNotification }) => {
       width: '30%',
       position: 'absolute'
     }}>
+      {/*----------------------- add/edit card starts here --------------------*/}
       <Card sx={{
         width: isSmallScreen ? '87vw' : 400,
         p: 2,
@@ -93,6 +95,7 @@ const ProductForm = ({ setNotification }) => {
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom
             sx={{ fontFamily: '"Fredoka",serif', color: 'var(--royal-blue)', textAlign: 'center', fontWeight: 550 }}>
+            {/*------ If id exists, we're editing a product -------*/}
             {id ? 'EDIT PRODUCT' : 'ADD PRODUCT'}
           </Typography>
           {error && (
@@ -100,6 +103,7 @@ const ProductForm = ({ setNotification }) => {
               {error}
             </Typography>
           )}
+          {/* -------add/edit product form text fields start here------------ */}
           <Box component="form" onSubmit={handleSubmit} noValidate>
             <TextField
               label="Name"
@@ -171,8 +175,9 @@ const ProductForm = ({ setNotification }) => {
               }}
               required
             />
+            {/*-------------------- save product button -------------------*/}
             <CardActions sx={{ mt: 2 }}>
-              <Button type="submit" variant="contained" className="add-product-button" fullWidth
+              <Button aria-label="Save product" type="submit" variant="contained" className="add-product-button" fullWidth
                 sx={{
                   fontFamily: '"Montserrat", serif',
                   backgroundSize: '600%',
@@ -182,6 +187,7 @@ const ProductForm = ({ setNotification }) => {
                     backgroundPosition: 'right'
                   }
                 }}>
+                {/*------ If id exists, we're editing a product -------*/}
                 {id ? 'Update Product' : 'Add Product'}
               </Button>
             </CardActions>

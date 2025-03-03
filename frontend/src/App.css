@@ -1,10 +1,10 @@
-/* global variables */
+/*----------------------- global variables-------------------------- */
 :root {
   --royal-blue: #1a7ce4;
   --light-blue: #15d4d1;
 }
 
-/* page header and logo */
+/* ------------------------page header and logo -------------------------*/
 .logo-header, .logo-text {
   color:var(--royal-blue);
   margin: 0;
@@ -19,8 +19,6 @@
 }
 
 .logo {
-  width: 140px;
-  height: auto;
   margin-bottom: -38px;
   margin-top: -15px;
   padding: 0;
@@ -33,7 +31,7 @@
   justify-content: center;
 }
 
-/* --------------Home page---------------- */
+/* ------------------------------Home page------------------------- */
 .get-started-button:hover {
   box-shadow:  0px 0px 10px 12px rgba(255,255,255,0.3) !important;
   transition: ease-in-out .33s;
@@ -63,7 +61,7 @@
   transition: .32s;
 }
 
-/* add and edit product card */
+/*-------------------------- add and edit product card ---------------------*/
 .add-product-button, .edit-product-button {
   background-size: 150% !important;
   background-position: top 20% left !important;
@@ -74,7 +72,7 @@
   transition: .32s ease-in-out;
   box-shadow: 0px 0px 7px 5px rgba(81, 189, 231, 0.534) !important;
 }
-/* product inventory table */
+/* -------------------------product inventory table----------------------------- */
 .MuiDataGrid-columnHeaders > .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator {
   display: none !important;
 }
@@ -96,7 +94,7 @@
 .MuiDataGrid-sortIcon {
   opacity: 1 !important;
 }
-
+/* ----------------------------media queries--------------------------- */
 @media screen and (max-width: 990px) {
   .bullet-cards {
     height: 300px;
@@ -113,6 +111,9 @@
 @media screen and (max-width: 560px) {
   .bullet-cards {
     flex-direction: column;
-    padding: .25rem;
+    padding: .05rem;
+  }
+  .why-nimbus-header {
+    font-size: 1.5rem !important;
   }
 }

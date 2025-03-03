@@ -2,7 +2,7 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import { useMediaQuery } from '@mui/material';
 import Box from '@mui/material/Box';
-import MuiDrawer from '@mui/material/Drawer';
+import Drawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
@@ -24,383 +24,343 @@ import { useContext, useState } from 'react';
 import Notification from '../components/Notification';
 import logo from '../images/logo-white.svg';
 
-/** Widths for the open vs. closed states */
 const drawerWidthOpen = 215;
 const drawerWidthClosed = 72;
 
-/** Reusable transition for open/close */
-const openedMixin = (theme) => ({
-  width: drawerWidthOpen,
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.easeOut,
-    duration: theme.transitions.duration.enteringScreen * 1.2,
-  }),
-  overflowX: 'hidden',
-});
-
-const closedMixin = (theme) => ({
-  transition: theme.transitions.create('width', {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen * 1.2,
-  }),
-  overflowX: 'hidden',
-  width: drawerWidthClosed,
-  [theme.breakpoints.up('sm')]: {
-    width: drawerWidthClosed,
-  },
-});
-
-/** Styled Drawer */
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
-  width: open ? drawerWidthOpen : drawerWidthClosed,
-  flexShrink: 0,
-  whiteSpace: 'nowrap',
-  boxSizing: 'border-box',
-  ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
-  }),
-  ...(!open && {
-    ...closedMixin(theme),
-    '& .MuiDrawer-paper': closedMixin(theme),
-  }),
+/** A simple main container with no margin shifts **/
+const Main = styled('main')(() => ({
+  flexGrow: 1,
+  padding: '1rem',
 }));
-
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(1),
-  justifyContent: 'flex-start',
-}));
-
-/** Main content container */
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    marginLeft: `-${drawerWidthClosed}px`,
-    ...(open && {
-      marginLeft: `${drawerWidthOpen}px`,
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-    }),
-  })
-);
 
 export default function MiniDrawer() {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery('(max-width:725px');
-  const [open, setOpen] = React.useState(false);
+  const isSmallScreen = useMediaQuery('(max-width:725px)');
+  const [open, setOpen] = useState(false);
   const [notification, setNotification] = useState('');
   const navigate = useNavigate();
   const { token, logout } = useContext(AuthContext);
 
-  //   Event Handlers
-  const handleLogout = () => {
-    logout();
-    setNotification('Logout successful!')
-    navigate('/login');
-  };
-
-  const handleDrawerOpen = () => {
-    setOpen(true);
-  };
-
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
+  // Toggle open/close
+  const handleDrawerOpen = () => setOpen(true);
+  const handleDrawerClose = () => setOpen(false);
 
   return (
-    // ---------Toggle Button starts here---------------//////////
-    <Box sx={{
-      display: 'flex'
-    }}>
+    <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      {/* Conditionally rendering toggle button Icon/Spacing */}
-
-      {open ? (
+      {/* -----------------Toggle Button ------------------*/}
+      { !isSmallScreen ? (
         <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={open ? handleDrawerClose : handleDrawerOpen}
-          edge="start"
-          sx={{
-            mb: 'auto',
-            zIndex: 1300,
-            top: 11,
-            left: `calc(${drawerWidthOpen}px + 27px)`,
-            transition: theme.transitions.create('left', {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-
-            position: 'fixed',
-            color: '#fff',
-            background: 'linear-gradient(205deg, rgba(21,212,209,1) 5%, rgba(14,195,250,1) 16%, rgba(26,124,228,1) 80%);',
-            filter: 'drop-shadow(1px 1px 3px rgb(96, 131, 201));'
-          }}
-        >
-          {open ? <ChevronLeftIcon sx={{ fontSize: '1.9rem' }} /> : <MenuIcon sx={{ fontSize: '1.9rem' }} />}
-        </IconButton>
-      ) : (
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={open ? handleDrawerClose : handleDrawerOpen}
-          edge="start"
-          sx={{
-            mb: 'auto',
-            zIndex: 1300,
-            top: 11,
-            left: isSmallScreen ? '27px' : `calc(${drawerWidthClosed}px + 27px)`,
-            transition:
-              theme.transitions.create('left', {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen
-              }),
-            position: 'fixed',
-            color: '#fff',
-            background: 'linear-gradient(205deg, rgba(21,212,209,1) 5%, rgba(14,195,250,1) 16%, rgba(26,124,228,1) 80%);',
-            filter: 'drop-shadow(1px 1px 3px rgb(96, 131, 201));'
-          }}
-        >
-          {open ? <ChevronLeftIcon sx={{ fontSize: '1.9rem' }} /> : <MenuIcon sx={{ fontSize: '1.9rem' }} />}
-        </IconButton>
-      )}
-      {/* --------------Navbar starts here----------------- */}
-      <Box
+        aria-label={open ? "Close Navbar" : "Open Navbar"}
+        onClick={open ? handleDrawerClose : handleDrawerOpen}
         sx={{
-          width: isSmallScreen && !open ? 0 : drawerWidthClosed,
-          opacity: isSmallScreen && !open ? '0' : '1'
+          position: 'fixed',
+          top: 11,
+          left: open
+            ? `${drawerWidthOpen + 20}px`
+            : `${drawerWidthClosed + 20}px`,
+          zIndex: 9999,
+          color: '#fff',
+          background:
+            'linear-gradient(205deg, rgba(21,212,209,1) 5%, rgba(14,195,250,1) 16%, rgba(26,124,228,1) 80%)',
+          transition: theme.transitions.create('left', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
         }}
       >
-        <Drawer variant="permanent" open={open}
-          PaperProps={{
-            sx: {
-              background: 'linear-gradient(-95deg, rgba(21,212,209,1) 0%, rgba(14,195,250,1) 6%, rgba(26,124,228,1) 70%);',
-              color: '#fff',
-              filter: 'drop-shadow(2px 0px 3px #8594b2);',
-              border: 'none;'
-            },
-          }}
-        >
-          {/* ----------------Navbar Header/Logo--------------- */}
-          <DrawerHeader sx={{ padding: 1 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              {/* Logo and App title goes here  */}
-              {open ? (
-                <><img src={logo} alt="Logo white" style={{ width: '50px', marginRight: '8px' }} /><h3 className="fredoka-heavy" style={{ lineHeight: '.68' }}>NIMBUS</h3></>
-              ) : (
-                <img src={logo} alt="Logo white" style={{ width: '50px' }} />
-              )}
-            </Box>
-          </DrawerHeader>
-          <Divider />
-          <List>
-            {/* ---------------Home link------------------ */}
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                component={Link}
-                to="/"
+        {/* if navbar is open, show chevron icon, if navbar is closed show menu icon */}
+        {open ? (
+          <ChevronLeftIcon sx={{ fontSize: '1.9rem' }} />
+        ) : (
+          <MenuIcon sx={{ fontSize: '1.9rem' }} />
+        )}
+      </IconButton>
+      ) : (
+        <IconButton
+        aria-label={open ? "Close Navbar" : "Open Navbar"}
+        onClick={open ? handleDrawerClose : handleDrawerOpen}
+        sx={{
+          position: 'fixed',
+          top: 11,
+          left: open
+            ? `${drawerWidthOpen + 20}px`
+            : '20px',
+          zIndex: 9999,
+          color: '#fff',
+          background:
+            'linear-gradient(205deg, rgba(21,212,209,1) 5%, rgba(14,195,250,1) 16%, rgba(26,124,228,1) 80%)',
+          transition: theme.transitions.create('left', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+        }}
+      >
+        {open ? (
+          <ChevronLeftIcon sx={{ fontSize: '1.9rem' }} />
+        ) : (
+          <MenuIcon sx={{ fontSize: '1.9rem' }} />
+        )}
+      </IconButton>
+      ) }
+      {/* *********************Navbar starts here *****************/}
+      <Drawer
+        variant="permanent"
+        open={open} 
+        PaperProps={{
+          sx: {
+            position: 'fixed',
+            zIndex: 9998,
+            top: 0,
+            left: 0,
+            height: '100%',
+            /** Animate width between open & closed. **/
+            width: open ? drawerWidthOpen : drawerWidthClosed,
+            display: isSmallScreen && !open ? 'none' : 'block',
+            whiteSpace: 'nowrap',
+            overflowX: 'hidden',
+            transition: theme.transitions.create('width', {
+              easing: theme.transitions.easing.easeOut,
+              duration: theme.transitions.duration.enteringScreen * 1.2,
+            }),
+            background:
+              'linear-gradient(-95deg, rgba(21,212,209,1) 0%, rgba(14,195,250,1) 6%, rgba(26,124,228,1) 70%)',
+            color: '#fff',
+            border: 'none',
+            filter: 'drop-shadow(2px 0px 3px #8594b2)',
+          },
+        }}
+      >
+        {/*------------------ Drawer Header--------------------- */}
+        <Box sx={{ display: 'flex', alignItems: 'center', padding: '8px' }}>
+          {open ? (
+            <>
+              <img
+                src={logo}
+                alt="Logo white"
+                height="50px"
+                width="50px"
+                style={{ marginRight: '8px' }}
+              />
+              <h3
+                className="fredoka-heavy"
+                style={{ lineHeight: '.68', margin: 0 }}
+              >
+                NIMBUS
+              </h3>
+            </>
+          ) : (
+            <img src={logo} alt="Logo white" style={{ width: '50px' }} />
+          )}
+        </Box>
+        <Divider />
+
+        <List>
+          {/* ------------------------Home -----------------------*/}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              component={Link}
+              aria-label="Link to Home Page"
+              to="/"
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 2 : 'auto',
+                  justifyContent: 'center',
+                  color: '#fff',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 2 : 'auto',
-                    justifyContent: 'center',
-                    color: '#fff',
-                    fontSize: '1.25rem'
-                  }}
-                >
-                  <HomeIcon
-                    sx={{
-                      fontSize: '1.75rem'
-                    }} />
-                </ListItemIcon>
-                {open && <ListItemText
+                <HomeIcon sx={{ fontSize: '1.75rem' }} />
+              </ListItemIcon>
+              {open && (
+                <ListItemText
                   primary="Home"
-                  disableTypography={true}
+                  disableTypography
                   sx={{
                     color: '#fff',
                     fontFamily: '"Montserrat",serif',
-                    letterSpacing: .5,
+                    letterSpacing: 0.5,
                     fontWeight: 500,
                     fontSize: '1.15rem',
-                    lineHeight: '.9'
-                  }} />}
-              </ListItemButton>
-            </ListItem>
-
-            {/* ----------------Products link --------------*/}
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                component={Link}
-                to="/products"
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 2 : 'auto',
-                    justifyContent: 'center',
-                    color: '#fff',
-                    fontSize: '1.25rem'
+                    lineHeight: '.9',
                   }}
-                >
-                  <ShoppingCartIcon
-                    sx={{
-                      fontSize: '1.75rem'
-                    }} />
-                </ListItemIcon>
-                {open && <ListItemText
-                  primary="Products"
-                  disableTypography={true}
-                  sx={{
-                    color: '#fff',
-                    fontFamily: '"Montserrat",serif',
-                    letterSpacing: .5,
-                    fontWeight: 500,
-                    fontSize: '1.15rem',
-                    lineHeight: '.9'
-                  }} />}
-              </ListItemButton>
-            </ListItem>
-
-            {/* ---------------Add Product link--------------- */}
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                component={Link}
-                to="/add-product"
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 2 : 'auto',
-                    justifyContent: 'center',
-                    color: '#fff',
-                    fontSize: '1.2rem'
-                  }}
-                >
-                  <AddBoxIcon
-                    sx={{
-                      fontSize: '1.75rem'
-                    }} />
-                </ListItemIcon>
-                {open && <ListItemText
-                  primary="Add Product"
-                  disableTypography={true}
-                  sx={{
-                    color: '#fff',
-                    fontFamily: '"Montserrat",serif',
-                    letterSpacing: .5,
-                    fontWeight: 500,
-                    fontSize: '1.15rem',
-                    lineHeight: '.9'
-                  }} />}
-              </ListItemButton>
-            </ListItem>
-            {/*------------------Login/Logout Link---------------*/}
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              {/* If there is a user logged in, display Logout Link */}
-              {token ? (
-                <ListItemButton
-                  onClick={handleLogout}
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 2 : 'auto',
-                      justifyContent: 'center',
-                      color: '#fff'
-                    }}
-                  >
-                    <LogoutIcon
-                      sx={{
-                        fontSize: '1.75rem'
-                      }} />
-                  </ListItemIcon>
-                  {open && <ListItemText
-                    primary="Logout"
-                    disableTypography={true}
-                    sx={{
-                      color: '#fff',
-                      fontFamily: '"Montserrat",serif',
-                      letterSpacing: .5,
-                      fontWeight: 500,
-                      fontSize: '1.15rem',
-                      lineHeight: '.9'
-                    }} />}
-                </ListItemButton>
-              ) : (
-                // If there is no user logged in, display login link
-                <ListItemButton
-                  component={Link}
-                  to="/login"
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
-                    sx={{
-                      minWidth: 0,
-                      mr: open ? 2 : 'auto',
-                      justifyContent: 'center',
-                      color: '#fff'
-                    }}
-                  >
-                    <LoginIcon
-                      sx={{
-                        fontSize: '1.75rem'
-                      }} />
-                  </ListItemIcon>
-                  {open && <ListItemText
-                    primary="Login"
-                    disableTypography={true}
-                    sx={{
-                      color: '#fff',
-                      fontFamily: '"Montserrat",serif',
-                      letterSpacing: .5,
-                      fontWeight: 500,
-                      fontSize: '1.15rem',
-                      lineHeight: '.9'
-                    }} />}
-                </ListItemButton>
+                />
               )}
-            </ListItem>
-          </List>
-        </Drawer>
-      </Box>
-      <Main open={open}>
-        <Notification message={notification} clearMessage={() => setNotification('')} />
+            </ListItemButton>
+          </ListItem>
+
+          {/* ----------------------Products --------------------*/}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              component={Link}
+              aria-label="Link to Products Page"
+              to="/products"
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 2 : 'auto',
+                  justifyContent: 'center',
+                  color: '#fff',
+                }}
+              >
+                <ShoppingCartIcon sx={{ fontSize: '1.75rem' }} />
+              </ListItemIcon>
+              {open && (
+                <ListItemText
+                  primary="Products"
+                  disableTypography
+                  sx={{
+                    color: '#fff',
+                    fontFamily: '"Montserrat",serif',
+                    letterSpacing: 0.5,
+                    fontWeight: 500,
+                    fontSize: '1.15rem',
+                    lineHeight: '.9',
+                  }}
+                />
+              )}
+            </ListItemButton>
+          </ListItem>
+
+          {/* ---------------------Add Product------------------ */}
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              component={Link}
+              aria-label="Link to add product page"
+              to="/add-product"
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 2 : 'auto',
+                  justifyContent: 'center',
+                  color: '#fff',
+                }}
+              >
+                <AddBoxIcon sx={{ fontSize: '1.75rem' }} />
+              </ListItemIcon>
+              {open && (
+                <ListItemText
+                  primary="Add Product"
+                  disableTypography
+                  sx={{
+                    color: '#fff',
+                    fontFamily: '"Montserrat",serif',
+                    letterSpacing: 0.5,
+                    fontWeight: 500,
+                    fontSize: '1.15rem',
+                    lineHeight: '.9',
+                  }}
+                />
+              )}
+            </ListItemButton>
+          </ListItem>
+
+          {/* -----------------------Login / Logout --------------*/}
+          <ListItem disablePadding sx={{ display: 'block' }} aria-label="logout">
+            {/* if there's a user token, give them the option to logout */}
+            {token ? (
+              <ListItemButton
+                onClick={() => {
+                  logout();
+                  setNotification('Logout successful!');
+                  navigate('/login');
+                }}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 2 : 'auto',
+                    justifyContent: 'center',
+                    color: '#fff',
+                  }}
+                >
+                  <LogoutIcon sx={{ fontSize: '1.75rem' }} />
+                </ListItemIcon>
+                {open && (
+                  <ListItemText
+                    primary="Logout"
+                    disableTypography
+                    sx={{
+                      color: '#fff',
+                      fontFamily: '"Montserrat",serif',
+                      letterSpacing: 0.5,
+                      fontWeight: 500,
+                      fontSize: '1.15rem',
+                      lineHeight: '.9',
+                    }}
+                  />
+                )}
+              </ListItemButton>
+            ) : (
+              // if no user token give them the option to login
+              <ListItemButton
+                component={Link}
+                aria-label="login"
+                to="/login"
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 2 : 'auto',
+                    justifyContent: 'center',
+                    color: '#fff',
+                  }}
+                >
+                  <LoginIcon sx={{ fontSize: '1.75rem' }} />
+                </ListItemIcon>
+                {open && (
+                  <ListItemText
+                    primary="Login"
+                    disableTypography
+                    sx={{
+                      color: '#fff',
+                      fontFamily: '"Montserrat",serif',
+                      letterSpacing: 0.5,
+                      fontWeight: 500,
+                      fontSize: '1.15rem',
+                      lineHeight: '.9',
+                    }}
+                  />
+                )}
+              </ListItemButton>
+            )}
+          </ListItem>
+        </List>
+      </Drawer>
+      {/* ----------main content outlet here-------------- */}
+      <Main>
+        <Notification
+          message={notification}
+          clearMessage={() => setNotification('')}
+        />
         <Outlet />
       </Main>
     </Box>
