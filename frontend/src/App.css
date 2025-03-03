@@ -1,38 +1,118 @@
-.App {
-  text-align: center;
+/* global variables */
+:root {
+  --royal-blue: #1a7ce4;
+  --light-blue: #15d4d1;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* page header and logo */
+.logo-header, .logo-text {
+  color:var(--royal-blue);
+  margin: 0;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.logo-header {
+  font-size: 2rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.logo-text {
+  letter-spacing: .25rem;
+}
+
+.logo {
+  width: 140px;
+  height: auto;
+  margin-bottom: -38px;
+  margin-top: -15px;
+  padding: 0;
+}
+
+.logo-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* --------------Home page---------------- */
+.get-started-button:hover {
+  box-shadow:  0px 0px 10px 12px rgba(255,255,255,0.3) !important;
+  transition: ease-in-out .33s;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.bullet-cards {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  height: 400px;
+}
+
+/* login and signup card */
+.login-button, .sign-up-button {
+  background-size: 150% !important;
+  background-position: top 20% left !important;
+}
+
+.login-button:hover, .sign-up-button:hover {
+  background-position: bottom right 10% !important;
+  transition: .32s ease-in-out;
+  box-shadow: 0px 0px 7px 5px rgba(81, 189, 231, 0.534) !important;
+}
+
+.sign-up-link:hover {
+  color: var(--light-blue) !important;
+  transition: .32s;
+}
+
+/* add and edit product card */
+.add-product-button, .edit-product-button {
+  background-size: 150% !important;
+  background-position: top 20% left !important;
+}
+
+.add-product-button:hover, .edit-product-button:hover {
+  background-position: bottom right 10% !important;
+  transition: .32s ease-in-out;
+  box-shadow: 0px 0px 7px 5px rgba(81, 189, 231, 0.534) !important;
+}
+/* product inventory table */
+.MuiDataGrid-columnHeaders > .MuiDataGrid-columnHeader:last-child .MuiDataGrid-columnSeparator {
+  display: none !important;
+}
+
+.MuiMenuItem-root {
+  font-family: 'Montserrat', serif !important;
+}
+
+.MuiDataGrid-iconButtonContainer button {
+  color: #fff !important;
+}
+
+.MuiDataGrid-menuIcon button {
+  color: #fff !important;
+  width: 100% !important;
+  margin-right: 10px !important;
+}
+
+.MuiDataGrid-sortIcon {
+  opacity: 1 !important;
+}
+
+@media screen and (max-width: 990px) {
+  .bullet-cards {
+    height: 300px;
   }
-  to {
-    transform: rotate(360deg);
+}
+
+@media screen and (max-width: 760px) {
+  .bullet-cards {
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .bullet-cards {
+    flex-direction: column;
+    padding: .25rem;
   }
 }
