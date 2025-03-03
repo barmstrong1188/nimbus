@@ -55,7 +55,7 @@ JWT_SECRET=your_jwt_secret
 node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
 Copy the generated string and paste it as your JWT_SECRET in your .env file.
-##$ 4. Run Database Setup Scripts:
+### 4. Run Database Setup Scripts:
   - This command creates a database and runs all migrations (**Make sure PostgreSQL is running**):
 ```bash
 npm run setup:dev
