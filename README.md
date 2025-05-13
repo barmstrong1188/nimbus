@@ -107,17 +107,6 @@ This command starts both the backend server (from the backend folder) and the fr
 ## - JWT Authentication:
   Ensure you have set a proper JWT_SECRET in your .env.
 
-# Development Process & Challenges
-
-### - Architecture & Tech Stack:
-  + I chose to build Nimbus Cloud Inventory Management using React, Node.js/Express, PostgreSQL (via Sequelize), and Material UI, aligning with the tech stack used by the reviewing team. Although it had been a while since I last implemented JWT-based authentication, I took the opportunity to refresh my knowledge on best practices. This refresh not only helped me implement a secure and robust authentication mechanism but also deepened my overall understanding of these technologies.
-### - Challenges:
-  + Integrating the mini drawer in a way that maintained a consistent and responsive layout presented its own challenges. I struggled with the drawer clashing with the main content, especially on smaller screens, and ensuring that the layout remained fluid without unwanted shifts. Through iterative adjustments with Material UI’s sx prop, custom media queries, and careful positioning, I was able to achieve a design where the sidebar overlays the main content without disrupting the overall user experience.
-### - Future Improvements:
-  + Implement real-time notifications.
-  + Add search feature to inventory.
-  + Further enhance interactive features such as charts and metrics.
-
 ### Screenshots:
 # Home Page
 ![nim-ss-home-desktop](https://github.com/user-attachments/assets/106d989a-e1e3-43a4-a166-388c3fb15652)
